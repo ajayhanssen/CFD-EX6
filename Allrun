@@ -1,0 +1,28 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+# resoter 0 folder
+restore0Dir
+
+# mesh
+runApplication blockMesh
+runApplication surfaceFeatureExtract
+runApplication snappyHexMesh -overwrite
+runApplication checkMesh
+
+restore0Dir
+runApplication setFields
+
+# createPatch
+runApplication -s 0 createPatch -overwrite -dict system/createPatchDict.0
+runApplication -s 1 createPatch -overwrite -dict system/createPatchDict.1
+
+# parallel stuff
+runApplication decomposePar
+runParallel renumberMesh -overwrite
+runParallel interFoam
+runApplication reconstructPar
+
+#------------------------------------------------------------------------------
