@@ -21,11 +21,14 @@ zmin 0;  zw 0.55;   zmax 1;
 
 ref 1;
 
-nx1 40;
-nx2 24;
-ny  20;
-nz1 12;
-nz2 10;
+// coarse 26 000
+nx1 40;  nx2 25;  ny 20;  nz1 11;  nz2 9;
+
+// medium 63 423
+// nx1 54;  nx2 33;  ny 27;  nz1 15;  nz2 12;
+
+// fine 150 336
+//nx1 72;  nx2 44;  ny 36;  nz1 20;  nz2 16;
 
 NX1 #calc "int($nx1*$ref + 0.5)";
 NX2 #calc "int($nx2*$ref + 0.5)";
@@ -35,21 +38,21 @@ NZ2 #calc "int($nz2*$ref + 0.5)";
 
 vertices
 (
-    // z = zmin
+
     ($xmin $ymin $zmin)  // 0
     ($xw   $ymin $zmin)  // 1
     ($xmax $ymin $zmin)  // 2
     ($xmin $ymax $zmin)  // 3
     ($xw   $ymax $zmin)  // 4
     ($xmax $ymax $zmin)  // 5
-    // z = zw
+
     ($xmin $ymin $zw)    // 6
     ($xw   $ymin $zw)    // 7
     ($xmax $ymin $zw)    // 8
     ($xmin $ymax $zw)    // 9
     ($xw   $ymax $zw)    // 10
     ($xmax $ymax $zw)    // 11
-    // z = zmax
+
     ($xmin $ymin $zmax)  // 12
     ($xw   $ymin $zmax)  // 13
     ($xmax $ymin $zmax)  // 14
@@ -60,10 +63,10 @@ vertices
 
 blocks
 (
-    hex (0 1 4 3 6 7 10 9)    ($NX1 $NY $NZ1) simpleGrading (1 1 1)  // A: at cube
-    hex (1 2 5 4 7 8 11 10)   ($NX2 $NY $NZ1) simpleGrading (1 1 1)  // B: wota
-    hex (6 7 10 9 12 13 16 15)  ($NX1 $NY $NZ2) simpleGrading (1 1 1)  // above cube
-    hex (7 8 11 10 13 14 17 16) ($NX2 $NY $NZ2) simpleGrading (1 1 1)  // above wota
+    hex (0 1 4 3 6 7 10 9)      ($nx1 $ny $nz1) simpleGrading (1 1 1)  // at cube
+    hex (1 2 5 4 7 8 11 10)     ($nx2 $ny $nz1) simpleGrading (1 1 1)  // wota
+    hex (6 7 10 9 12 13 16 15)  ($nx1 $ny $nz2) simpleGrading (1 1 1)  // aobve cube
+    hex (7 8 11 10 13 14 17 16) ($nx2 $ny $nz2) simpleGrading (1 1 1)  // above wota
 );
 
 edges ();
