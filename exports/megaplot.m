@@ -63,7 +63,7 @@ for col = 2:9
         e_ext=abs((phi_ext_21-Phi1(i))/phi_ext_21);
     
     end
-
+    %p(3)
     p_mean = mean(p)
     p_mean_vec(col-1) = p_mean;
     GCI=1.25*e21_a/(r21.^p_mean-1);
@@ -77,7 +77,7 @@ p_mean_vec
 %% meag plot
 val_p = readtable("exp_data.txt");
 
-fig = figure
+fig = figure;
 tiledlayout(2,2)
 % 2-5, 6-9
 for col = 6:9
@@ -96,7 +96,8 @@ for col = 6:9
     grid on
     set(gca, 'FontSize', 15)
 end
-lgd = legend('$p_\mathrm{Simulation}$', '$p_\mathrm{Experiment}$', 'Interpreter', 'latex');
+lgd = legend('$p_\mathrm{Experiment}$', '$p_\mathrm{Simulation}$', 'Interpreter', 'latex', ...
+    'FontSize', 20);
 lgd.Layout.Tile= "south";
 
 %exportgraphics(fig, './figures/p_probes_1_4.pdf', ContentType='vector')
